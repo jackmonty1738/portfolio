@@ -1,0 +1,1243 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Jackson Montgomery</title>
+<meta name="description" content="Jackson Montgomery: UT Austin Informatics student, builder of TaskaPeer, AI/ML, cybersecurity and software projects.">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@300;400;600;700&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#101C30; --ink-2:#16253D; --ink-3:#1D2F4C; --ink-4:#243A5C;
+  --line:#2A3D5E; --line-2:#3A5280;
+  --text:#F2F6FC; --text-2:#C9D4E8; --muted:#93A3C2;
+  --sec:rgba(16,28,48,.88);
+  --ai:#FF7A29; --cyber:#2FD8A4; --swe:#6F8FFF; --impl:#E3B341;
+  --accent:#FF7A29;
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --mono:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --fs-mono:.9rem;
+  --w:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#0a0a0a}
+a{color:inherit}
+h1,h2,h3,h4,h5{font-family:var(--display);font-weight:800;margin:0;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.wrap{width:100%;max-width:var(--w);margin-inline:auto;padding-inline:clamp(16px,5vw,40px)}
+.mono{font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.14em;text-transform:uppercase}
+
+/* page-wide cursor glow */
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(520px circle at var(--gx,-500px) var(--gy,-500px),color-mix(in srgb,var(--accent) 9%,transparent),transparent 65%);
+  transition:background .3s}
+#root{position:relative;z-index:1}
+.scene{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(14,24,42,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:20px;height:58px}
+.mark{font-family:var(--display);font-weight:800;text-decoration:none;font-size:.95rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);transition:background .4s,box-shadow .4s}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{position:relative;text-decoration:none;color:var(--muted);padding:8px 11px;border-radius:3px;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:var(--ink-3)}
+.nav-links a.on{color:var(--text)}
+.nav-links a.on::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2px;background:var(--accent);border-radius:2px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:transparent}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(10,20,40,.7) 0%,rgba(10,20,40,.45) 42%,rgba(10,20,40,0) 72%)}
+.hero-in{position:relative;padding-block:clamp(64px,11vw,120px) clamp(170px,26vw,300px)}
+.hero h1,.pitch,.eyebrow{text-shadow:0 2px 24px rgba(10,18,34,.55)}
+.hero .eyebrow,.hero .lens-label{color:var(--text)}
+.hero .pitch{color:#E3EAF6}
+.hero-cap{position:absolute;right:clamp(16px,5vw,40px);bottom:18px;color:rgba(242,246,252,.7)}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--muted);margin-bottom:22px;flex-wrap:wrap}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--cyber);box-shadow:0 0 0 0 var(--cyber);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(47,216,164,.5)}80%,100%{box-shadow:0 0 0 10px rgba(47,216,164,0)}}
+.hero h1{font-size:clamp(3rem,10vw,6.4rem);letter-spacing:-.05em;line-height:.9}
+.hero h1 .l2{display:block;color:#F6C29C}
+.hero h1 .ch{display:inline-block;transition:transform .35s cubic-bezier(.2,.8,.2,1),color .25s}
+.hero h1 .ch:hover{transform:translateY(-.12em);color:var(--accent);-webkit-text-stroke:0}
+
+.lens{margin-top:38px;max-width:760px}
+.lens-label{color:var(--muted);margin-bottom:12px}
+.lens-row{position:relative;display:flex;flex-wrap:wrap;gap:6px;padding:5px;background:rgba(22,37,61,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:6px;width:fit-content;max-width:100%}
+.lens-btn{position:relative;z-index:1;padding:10px 14px;border-radius:4px;color:var(--muted);font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.12em;text-transform:uppercase;transition:color .25s;display:flex;align-items:center;gap:8px}
+.lens-btn i{width:7px;height:7px;border-radius:50%;background:var(--c);opacity:.55;transition:opacity .25s}
+.lens-btn:hover{color:var(--text)}
+.lens-btn:hover i,.lens-btn.on i{opacity:1}
+.lens-btn.on{color:#0B0B0B;background:var(--c);font-weight:500}
+.lens-btn.on i{background:#0B0B0B}
+.pitch{margin-top:20px;font-size:clamp(1.1rem,2.2vw,1.35rem);line-height:1.55;color:var(--text-2);font-weight:300;max-width:58ch;min-height:4.7em}
+.pitch b{color:var(--text);font-weight:600}
+.pitch span{display:inline-block;animation:fadeUp .45s ease both}
+@keyframes fadeUp{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.12em;text-transform:uppercase;padding:12px 17px;border:1px solid var(--line-2);border-radius:4px;color:var(--text-2);background:var(--ink-2);transition:border-color .2s,color .2s,transform .2s,background .2s}
+.btn:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#0B0B0B;font-weight:500}
+.btn.pri:hover{filter:brightness(1.1)}
+.btn svg{width:14px;height:14px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line);background:var(--sec);position:relative}
+.stat{padding:22px clamp(16px,4vw,34px);border-left:1px solid var(--line);transition:background .25s}
+.stat:first-child{border-left:0}
+.stat:hover{background:var(--ink-2)}
+.stat b{display:block;font-family:var(--display);font-size:clamp(1.5rem,3.4vw,2.1rem);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted)}
+
+/* sections */
+section{padding-block:clamp(64px,9vw,104px);border-bottom:1px solid var(--line);scroll-margin-top:58px;background:var(--sec);position:relative}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font-size:clamp(1.9rem,4.6vw,3rem)}
+.sec-head .k{color:var(--accent);margin-bottom:10px;display:block;transition:color .4s}
+.sec-head p{color:var(--muted);max-width:44ch;font-size:.975rem}
+.prose{max-width:66ch;color:var(--text-2);font-weight:300;display:grid;gap:18px;font-size:1.125rem}
+.prose b{color:var(--text);font-weight:600}
+
+/* lens matching */
+.m{transition:opacity .35s,filter .35s}
+.dim{opacity:.28;filter:saturate(.3)}
+.match-tag{display:inline-flex;align-items:center;gap:6px;color:var(--accent);opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s}
+.match-tag.on{opacity:1;transform:none}
+
+/* tilt card */
+.card{position:relative;border:1px solid var(--line);background:var(--ink-2);border-radius:8px;padding:24px clamp(18px,3vw,28px);overflow:hidden;
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,border-color .25s,background .25s,opacity .35s,filter .35s;will-change:transform}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 13%,transparent),transparent 60%)}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;padding:1px;opacity:0;transition:opacity .3s;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),var(--accent),transparent 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover{background:var(--ink-3)}
+.card:hover::before,.card:hover::after{opacity:1}
+
+/* experience */
+.tl{display:grid;gap:14px}
+.tl-item{display:grid;grid-template-columns:170px 1fr;gap:clamp(16px,4vw,40px)}
+.tl-when{color:var(--muted);line-height:1.8;padding-top:4px}
+.tl-when em{display:block;font-style:normal;color:var(--muted)}
+.role{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+.role .org{color:var(--accent);transition:color .4s}
+.sub{color:var(--muted);font-size:.95rem;margin-top:4px}
+.bul{margin-top:14px;display:grid;gap:8px}
+.bul li{position:relative;padding-left:20px;color:var(--text-2);font-weight:300}
+.bul li::before{content:"";position:absolute;left:0;top:.75em;width:9px;height:1px;background:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:3px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);color:var(--c);background:color-mix(in srgb,var(--c) 8%,transparent)}
+
+/* projects */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line-2);margin-bottom:28px;position:relative;overflow-x:auto;scrollbar-width:none}
+.tab{padding:14px 20px 16px;font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--muted);transition:color .2s;white-space:nowrap;display:flex;gap:10px;align-items:baseline}
+.tab small{font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.1em;color:var(--muted);font-weight:400}
+.tab:hover{color:var(--text-2)}
+.tab.on{color:var(--text)}
+.tab-bar{position:absolute;bottom:-1px;height:2px;background:var(--accent);transition:left .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1),background .4s}
+.cat-note{color:var(--muted);font-size:.975rem;max-width:62ch;margin-bottom:24px}
+.orgs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.org-btn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 16px;border:1px solid var(--line);border-radius:6px;background:var(--ink-2);text-align:left;transition:border-color .2s,background .2s,transform .2s}
+.org-btn:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.org-btn.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--ink-2))}
+.org-btn b{font-family:var(--display);font-weight:700;font-size:1rem}
+.org-btn span{color:var(--muted)}
+.org-intro{color:var(--text-2);font-weight:300;margin-bottom:18px;max-width:70ch}
+.pgrid{display:grid;gap:14px}
+.pcard{cursor:pointer}
+.pcard-top{display:flex;justify-content:space-between;align-items:start;gap:16px}
+.kicker{color:var(--accent);margin-bottom:10px;transition:color .4s}
+.pcard h4{font-size:1.25rem;letter-spacing:-.015em}
+.pcard .summary{color:var(--text-2);font-weight:300;margin-top:10px;max-width:72ch}
+.plus{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:transform .35s,border-color .2s,background .2s}
+.plus svg{width:14px;height:14px}
+.pcard:hover .plus{border-color:var(--accent)}
+.pcard.open .plus{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:#0B0B0B}
+.expand{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1)}
+.pcard.open .expand{grid-template-rows:1fr}
+.expand > div{overflow:hidden}
+.fields{margin-top:18px;border-top:1px solid var(--line)}
+.field{display:grid;grid-template-columns:140px 1fr;gap:clamp(12px,3vw,24px);padding-block:14px;border-bottom:1px solid var(--line)}
+.field:last-child{border-bottom:0}
+.field dt{color:var(--muted);padding-top:3px}
+.field dd{margin:0;color:var(--text-2);font-weight:300}
+.soon{display:inline-flex;align-items:center;gap:8px;color:var(--muted);border:1px dashed var(--line-2);border-radius:3px;padding:6px 10px}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line-2);border-radius:3px;padding:5px 10px;color:var(--text-2);background:var(--ink-3);transition:color .2s,border-color .2s,transform .2s,background .2s,opacity .35s}
+.chip:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.chip.hit{color:#0B0B0B;background:var(--accent);border-color:var(--accent)}
+.chip.dim{opacity:.3}
+.pg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.pg-grid .num{font-family:var(--display);font-size:2.4rem;font-weight:800;color:var(--line-2);line-height:1;letter-spacing:-.04em;transition:color .3s}
+.pg-grid .card:hover .num{color:var(--accent)}
+
+/* projects: post-grad mini cards */
+.pg-mini{cursor:pointer}
+.pg-mini h4{font-size:1.1rem;margin-top:2px}
+.pg-mini .num{display:block;margin-bottom:8px}
+.pg-mini .plus svg{width:13px;height:13px}
+.pg-mini:hover .plus{background:var(--accent);color:#0B0B0B;transform:translate(2px,-2px)}
+
+/* postgraduate program */
+.pgp-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--ink-2)}
+.pgp-facts div{padding:18px 20px;border-left:1px solid var(--line);display:grid;gap:4px}
+.pgp-facts div:first-child{border-left:0}
+.pgp-facts b{font-family:var(--display);font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pgp-facts span{color:var(--muted)}
+.pgp{display:grid;grid-template-columns:290px 1fr;gap:22px;align-items:start;margin-top:8px}
+.rail{position:sticky;top:76px;display:grid;gap:4px;padding-left:14px;border-left:1px solid var(--line-2)}
+.rail-item{position:relative;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:12px 14px;border-radius:6px;color:var(--muted);transition:background .2s,color .2s,opacity .35s,filter .35s}
+.rail-item::before{content:"";position:absolute;left:-19px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1px solid var(--line-2);transition:background .25s,border-color .25s,box-shadow .25s}
+.rail-item:hover{background:var(--ink-2);color:var(--text-2)}
+.rail-item.on{background:var(--ink-3);color:var(--text)}
+.rail-item.on::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
+.rail-n{padding-top:3px;color:inherit}
+.rail-t{display:grid;gap:2px}
+.rail-t b{font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.25}
+.rail-t span{color:var(--muted);font-size:.625rem}
+.panel{border:1px solid var(--line);border-radius:10px;background:var(--ink-2);padding:clamp(20px,3.4vw,34px);animation:panelIn .45s cubic-bezier(.2,.8,.2,1) both;min-width:0}
+@keyframes panelIn{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+.panel-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.pager{display:flex;gap:6px;flex:0 0 auto}
+.pg-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:border-color .2s,background .2s,color .2s,transform .2s}
+.pg-btn:hover{border-color:var(--accent);background:var(--accent);color:#0B0B0B;transform:scale(1.06)}
+.proj-label{color:var(--muted);margin-top:28px}
+.proj-title{font-size:clamp(1.45rem,3.4vw,2.1rem);margin-top:8px;letter-spacing:-.03em}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.metric{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--ink);display:grid;gap:6px;animation:fadeUp .5s ease both;transition:border-color .25s,transform .25s}
+.metric:hover{border-color:var(--accent);transform:translateY(-3px)}
+.metric b{font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.7rem);letter-spacing:-.03em;color:var(--accent);line-height:1.1;transition:color .4s;font-variant-numeric:tabular-nums}
+.metric span{color:var(--muted);font-size:.85rem;line-height:1.35}
+.quote{margin:0;padding-left:14px;border-left:2px solid var(--accent);color:var(--text);font-style:italic}
+
+/* cyber */
+.cy-top{display:grid;grid-template-columns:minmax(0,68ch);gap:clamp(24px,5vw,56px);align-items:start}
+.phase{display:flex;flex-wrap:wrap;max-width:100%;gap:6px;padding:5px;background:var(--ink-2);border:1px solid var(--line);border-radius:6px;width:fit-content;margin-bottom:20px}
+.phase button{padding:10px 16px;text-align:left;border-radius:4px;color:var(--muted);transition:color .2s,background .2s}
+.phase button.on{background:var(--cyber);color:#04120D}
+.phase-body h3{font-size:1.5rem;margin-bottom:10px}
+.phase-body p{color:var(--text-2);font-weight:300}
+.phase-body .bul{margin-top:16px}
+.phase-body .bul li::before{background:var(--cyber)}
+.terminal{border:1px solid var(--line);border-radius:8px;background:#05070A;overflow:hidden;font-family:var(--mono);font-size:.75rem;line-height:1.8}
+.term-bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--ink-2);align-items:center}
+.term-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
+.term-bar span{margin-left:10px;color:var(--muted);font-size:.65rem;letter-spacing:.1em}
+.term-body{padding:16px 18px;min-height:230px;color:var(--text-2);overflow-x:auto}
+.term-body .ok{color:var(--cyber)}
+.term-body .pr{color:var(--muted)}
+.caret{display:inline-block;width:7px;height:1em;background:var(--cyber);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.mods{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:40px}
+.mod{padding:18px;border:1px solid var(--line);border-radius:6px;background:var(--ink-2);transition:border-color .25s,transform .25s,background .25s}
+.mod:hover{border-color:var(--cyber);transform:translateY(-3px);background:color-mix(in srgb,var(--cyber) 6%,var(--ink-2))}
+.mod .mn{color:var(--cyber);margin-bottom:8px}
+.mod b{display:block;font-family:var(--display);font-weight:700;font-size:1rem;line-height:1.25}
+.mod p{color:var(--muted);font-size:.875rem;margin-top:6px;line-height:1.45}
+
+/* edu */
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.edu h4{font-size:1.25rem}
+.meta{color:var(--muted);margin-top:8px}
+
+/* skills */
+.skills{display:grid;gap:26px}
+.skill-row{display:grid;grid-template-columns:170px 1fr;gap:clamp(16px,4vw,40px);align-items:start}
+.skill-row > span{color:var(--muted);padding-top:6px}
+
+/* interests */
+.int-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:12px;grid-auto-flow:dense}
+.int{padding:0;display:flex;align-items:flex-end;min-height:0;isolation:isolate}
+.int-big{grid-column:span 2;grid-row:span 2}
+.int-wide{grid-column:span 2}
+.int-img,.int-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s;z-index:-1}
+.int-art{background:radial-gradient(120% 90% at 80% 10%,var(--t1),transparent 55%),linear-gradient(160deg,var(--t2),#0E1830);display:grid;place-items:center;overflow:hidden}
+.int-art span{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.28);white-space:nowrap;transform:rotate(-8deg)}
+.int:hover .int-img,.int:hover .int-art{transform:scale(1.07)}
+.int-cap{position:relative;width:100%;padding:16px 18px;background:linear-gradient(to top,rgba(10,18,34,.88),rgba(10,18,34,0));display:grid;gap:4px}
+.int-cap .mono{color:rgba(242,246,252,.75)}
+.int-cap h4{font-size:1.3rem}
+.int-big .int-cap h4{font-size:clamp(1.6rem,3.4vw,2.2rem)}
+.int-cap p{color:var(--text-2);font-size:.92rem;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s,opacity .3s}
+.int:hover .int-cap p,.int:focus-within .int-cap p{max-height:6em;opacity:1}
+.int-soon{color:rgba(242,246,252,.55)!important;font-size:.6rem}
+@media (max-width:860px){.int-grid{grid-template-columns:repeat(2,1fr)}.int-wide{grid-column:span 1}}
+@media (max-width:480px){.int-grid{grid-template-columns:1fr;grid-auto-rows:280px}.int-big{grid-column:auto;grid-row:span 1}.int-wide{grid-column:auto}}
+@media (hover:none){.int-cap p{max-height:none;opacity:1}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
+.mail{font-family:var(--display);font-weight:800;letter-spacing:-.035em;font-size:clamp(1.5rem,5.2vw,3.2rem);word-break:break-word;line-height:1.05;user-select:all}
+.mail-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.links{display:grid;gap:8px}
+.link-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:var(--ink-2);transition:border-color .2s,transform .2s,background .2s}
+.link-row:hover{border-color:var(--accent);transform:translateX(4px);background:var(--ink-3)}
+.link-row b{font-family:var(--display);font-weight:700}
+.link-row span{color:var(--muted)}
+.link-row svg{width:16px;height:16px;transition:transform .2s}
+.link-row:hover svg{transform:translate(3px,-3px)}
+footer{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:var(--muted)}
+.foot-band{background:var(--sec);position:relative}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+@media (max-width:860px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .cy-top,.contact-grid,.edu{grid-template-columns:1fr}
+  .mods{grid-template-columns:repeat(2,1fr)}
+  .pg-grid{grid-template-columns:1fr}
+  .pgp{grid-template-columns:1fr}
+  .rail{position:static;display:flex;overflow-x:auto;padding:0 0 6px;border-left:0;gap:6px;scrollbar-width:thin}
+  .rail-item{flex:0 0 auto;border:1px solid var(--line);max-width:220px}
+  .rail-item::before{display:none}
+  .rail-item.on{border-color:var(--accent)}
+}
+@media (max-width:560px){
+  .metrics{grid-template-columns:1fr}
+  .pgp-facts div{border-left:0;border-top:1px solid var(--line)}
+  .pgp-facts div:first-child{border-top:0}
+}
+@media (max-width:640px){
+  .tl-item,.skill-row,.field{grid-template-columns:1fr;gap:8px}
+  .tl-when em{display:inline;margin-left:8px}
+  .mods{grid-template-columns:1fr}
+  .lens-btn{padding:9px 10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .card{transform:none!important}
+}
+
+/* ---- human-made pass: plain labels, quieter cards ---- */
+.mono,.btn,.chip,.tag,.kicker,.lens-btn,.nav-links a,.soon,.tab small,.phase button,.rail-t span,.rail-n,.metric span,.field dt,.int-cap .mono,.stat span{letter-spacing:0!important;text-transform:none!important}
+h1,h2,h3,h4,h5,.role,.tab,.org-btn b,.rail-t b,.metric b,.mail,.link-row b,.mod b,.mark,.int-cap h4,.proj-title{font-weight:400!important;letter-spacing:-.01em}
+.hero h1{letter-spacing:-.02em!important;line-height:.95}
+.hero h1 .l2{font-style:italic}
+.sec-head h2{font-size:clamp(2.2rem,5.4vw,3.4rem)}
+.mark{font-family:var(--display);font-size:1.35rem}
+.nav-links a{font-size:.95rem}
+.nav-links a.on::after{height:1px}
+.kicker,.sec-head .k{font-size:.95rem;font-style:italic;font-family:var(--display)}
+.sec-head .k{font-size:1.15rem}
+.card{transform:none!important;border-radius:4px;transition:border-color .25s,background .25s,opacity .35s,filter .35s}
+.card::before,.card::after{display:none}
+.card:hover{background:var(--ink-3);border-color:var(--line-2)}
+.btn{font-size:.95rem;border-radius:4px;padding:10px 16px}
+.btn.pri{font-weight:600}
+.chip{font-size:.85rem;border-radius:3px}
+.chip:hover{transform:none}
+.lens-row{background:none!important;border:0;padding:0;gap:4px 22px;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.lens-btn{padding:4px 0;border-radius:0;font-size:1.05rem;color:var(--text-2);border-bottom:2px solid transparent}
+.lens-btn i{display:none}
+.lens-btn.on{background:none;color:var(--text);font-weight:600;border-bottom-color:var(--c)}
+.lens-btn:hover{color:var(--text)}
+.lens-label{font-style:italic}
+.eyebrow{font-size:1rem}
+.tl{gap:0}
+.tl .card{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding-inline:0}
+.tl .card:hover{background:none}
+.role{font-size:1.65rem}
+.int-art span{display:none}
+.pg-grid .num,.pg-mini .num{display:none}
+.mod{border-radius:4px}
+.mod:hover{transform:none}
+.org-btn{border-radius:4px}
+.org-btn:hover{transform:none}
+.link-row{border-radius:4px}
+.metric{border-radius:4px}
+.metric b{font-family:var(--display)}
+.panel{border-radius:6px}
+.plus,.pg-btn{border-radius:4px}
+
+/* ---- photo background ---- */
+body{background:#0E1A2E}
+.page-bg{position:fixed;inset:-40px;z-index:0;pointer-events:none;background:#0E1A2E url("img/bg.jpg") center 40%/cover no-repeat}
+.page-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,26,46,.25),rgba(14,26,46,.45))}
+.hero{min-height:min(92vh,880px)}
+.hero-img{position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);max-width:none;object-fit:cover;object-position:56% 42%;transform:translate3d(var(--px,0),var(--py,0),0) scale(1.04);will-change:transform;z-index:0}
+.hero::before{z-index:1;background:linear-gradient(90deg,rgba(9,20,40,.7) 0%,rgba(9,20,40,.42) 40%,rgba(9,20,40,.08) 70%,rgba(9,20,40,0) 100%)!important}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(14,26,46,0),rgba(14,26,46,.85))}
+.hero-in{z-index:2;padding-block:clamp(64px,11vw,120px) clamp(64px,10vw,120px)!important}
+:root{--sec:rgba(14,26,46,.62)}
+.btn-note{cursor:default;border-style:dashed}
+.btn-note:hover{transform:none;border-color:var(--line-2);color:var(--text-2)}
+.link-static{cursor:default}
+.link-static:hover{transform:none;border-color:var(--line);background:var(--ink-2)}
+.link-static .mono{display:block;margin-top:4px;line-height:1.45}
+.about-grid{display:grid;grid-template-columns:minmax(220px,340px) minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:start}
+.portrait{margin:0;position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--line-2);box-shadow:0 18px 40px rgba(6,12,24,.45);aspect-ratio:4/5;max-width:100%}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.portrait:hover img{transform:scale(1.04)}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr}.portrait{max-width:300px}}
+.deck-modal{position:fixed;inset:0;z-index:100;background:rgba(6,12,24,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;animation:fadeUp .25s ease both}
+.deck-box{width:min(1100px,100%);max-height:100%;display:grid;gap:12px;grid-template-rows:auto minmax(0,1fr) auto auto}
+.deck-top{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--text)}
+.deck-top span{font-family:var(--display);font-size:1.3rem}
+.deck-x{color:var(--text-2);padding:6px 10px;border:1px solid var(--line-2);border-radius:4px}
+.deck-x:hover{color:var(--text);border-color:var(--text-2)}
+.deck-stage{min-height:0;display:grid;place-items:center}
+.deck-stage img,.deck-slide{max-width:100%;max-height:68vh;border-radius:4px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.slide-strip{background-repeat:no-repeat;background-color:#fff;aspect-ratio:1000/563}
+.deck-slide.slide-strip{width:min(100%,calc(68vh*1000/563))}
+.deck-thumb.slide-strip{width:100%}
+.deck-nav{display:flex;justify-content:center;align-items:center;gap:16px;color:var(--text-2)}
+.deck-nav .pg-btn:disabled{opacity:.35;cursor:default}
+.deck-thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.deck-thumbs button{flex:0 0 auto;width:110px;border:2px solid transparent;border-radius:3px;overflow:hidden;opacity:.6;transition:opacity .2s,border-color .2s}
+.deck-thumbs button:hover{opacity:1}
+.deck-thumbs button.on{opacity:1;border-color:var(--accent)}
+.deck-thumbs img,.deck-thumbs .deck-thumb{display:block;width:100%}
+.mods-head{color:var(--muted);margin-top:36px}
+.mods-head + .mods{margin-top:12px}
+.formats{margin:22px 0 30px;padding:18px 20px;border:1px solid var(--line);border-radius:4px;background:var(--ink-2);max-width:900px}
+.formats-h{font-family:var(--display);font-size:1.3rem;margin-bottom:4px}
+.formats p{color:var(--text-2)}
+.formats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.formats-grid div{display:grid;gap:4px;padding:12px 14px;border-left:2px solid var(--accent);background:rgba(255,255,255,.03)}
+.formats-grid b{color:var(--text)}
+.formats-grid span{color:var(--text-2);font-size:.95rem;line-height:1.45}
+@media (max-width:640px){.formats-grid{grid-template-columns:1fr}}
+.bul li.learned{margin-top:6px;padding:12px 14px 12px 16px;border-left:2px solid var(--accent);background:rgba(255,255,255,.04);border-radius:0 4px 4px 0;color:var(--text);font-weight:400}
+.bul li.learned::before{display:none}
+.bul li.learned span{display:block;font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--accent);margin-bottom:2px}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+/* =====================================================================
+   CONTENT. Edit this block to update the site.
+   tracks: ai = AI/ML, cyber = Cybersecurity, swe = Software Engineering,
+           impl = AI Implementation
+   deck: put a link to the slide deck (Google Slides, PDF, etc.) or null
+   ===================================================================== */
+const LINKS = {
+  email: "jackrmonty17@gmail.com",
+  linkedin: "https://www.linkedin.com/in/jackmonty1726",
+  githubA: "https://github.com/jaxmorgan43",
+  taskapeer: "https://taskapeer1.com"
+};
+
+const TRACKS = [
+  { id: "all",   label: "About me",          c: "#E7EBF3" },
+  { id: "ai",    label: "AI / ML",           c: "#FF7A29" },
+  { id: "cyber", label: "Cybersecurity",     c: "#2FD8A4" },
+  { id: "swe",   label: "Software Eng.",     c: "#6F8FFF" },
+  { id: "impl",  label: "AI Implementation", c: "#E3B341" }
+];
+
+const PITCH = {
+  all:   ["I build ", "ML workflows on real business data", ", ship production software as a ", "founding CTO", ", and I’m training for client work in ", "cybersecurity", "."],
+  ai:    ["Seven graded AI/ML capstones, from a ", "loan-targeting model with 6.6× lift", " to a RAG medical assistant, plus ", "Amazon Ads ROI modeling", " at a publisher and an LLM matching engine in production."],
+  cyber: ["I’m taking ", "Google’s Cybersecurity Professional Certificate", " now, and in Spring 2027 I’ll ", "intern for a Texas Cyber Clinic client", ", advising them on their security."],
+  swe:   ["Founding engineer at ", "taskapeer", ". I own the architecture, payments, matching logic, and release cycles for a two-sided marketplace with ", "real users", "."],
+  impl:  ["I put AI inside workflows people already use: ", "private research tools", " at an advisory firm, ", "Claude API matching", " at a startup, and n8n automations."]
+};
+
+const EXPERIENCE = [
+  { when: "Apr 2026 – Present", where: "Austin, TX", role: "Chief Technology Officer", org: "taskapeer",
+    sub: "Early-stage startup building a peer-to-peer task marketplace for university students",
+    tracks: ["swe","ai","impl"],
+    learned: "Being a CTO taught me how to lead the business, not just write the code. I learned to turn user feedback into real decisions, explain tradeoffs to teammates who aren’t technical, and own the call when something breaks.",
+    bullets: [
+      "Own the end-to-end technical build as founding engineer: architecture, matching logic, and release cycles",
+      "Took the platform to production with real users, including Stripe Connect payments, background checks, and an admin panel",
+      "Built the matching engine and onboarding flows in Python, adding AI (Claude API) only where it speeds users up",
+      "Prototype, test, and ship new features on fast release cycles, using AI-assisted tools to speed up routine work"
+    ] },
+  { when: "Jul 2025 – Aug 2025", where: "Nashville, TN", role: "Business Analytics Intern", org: "Turner Publishing Company",
+    sub: "Independent Nashville publisher specializing in regional history and culture",
+    tracks: ["ai","impl"],
+    learned: "I closed out the summer by presenting my findings to the team, and it taught me that great analysis means nothing if nobody understands it. I learned to cut the jargon, lead with the takeaway, and think on my feet when the questions start.",
+    bullets: [
+      "Created ML workflows on large datasets to analyze Amazon Ads strategies for books across 30 to 180 day outcomes",
+      "Identified ROI-maximizing strategies by time frame, balancing efficiency against profitability",
+      "Tested strategies under varying decay-rate assumptions across multiple data interfaces to inform ad budget allocation"
+    ] },
+  { when: "Jun 2025 – Jul 2025", where: "Houston, TX", role: "Data Analytics Intern", org: "NewVista Advisory Group",
+    sub: "Advisory firm delivering interim leadership, fractional executives, and strategic guidance",
+    tracks: ["impl","ai"],
+    learned: "Being the point of contact for law firms threw me into real business conversations right away. I learned how to prepare for a call, write emails people actually answer, and speak with confidence in front of experienced attorneys.",
+    bullets: [
+      "Conducted due diligence on energy M&A law firms as a point of contact, building partnerships with attorneys",
+      "Built a library of 25 individualized PowerPoint decks synthesizing each firm's key traits into client-ready briefings",
+      "Developed private AI tools to speed up research and presentation development, strengthening client outreach"
+    ] },
+  { when: "Jul 2023 – Aug 2024", where: "Nashville, TN", role: "Tutor and Volunteer", org: "Youth Encouragement Services",
+    sub: "Organization serving at-risk youth through education, guidance, and enrichment",
+    tracks: [],
+    learned: "Teaching kids and speaking to groups of students is the best public speaking training I’ve had. If I couldn’t explain something simply, I lost the room, and that lesson has stuck with me in every presentation since.",
+    bullets: [
+      "Tutored K-7 students in math, phonics, nutrition, and earth science, adapting explanations to each learner",
+      "Mentored children with limited support at home, building trust through consistent relationships"
+    ] }
+];
+
+const INVOLVEMENT = [
+  { when: "Aug 2026 – May 2027", where: "Austin, TX", role: "Cybersecurity Student", org: "Texas Cyber Clinic",
+    sub: "Two-semester clinic training students to deliver cybersecurity services to Texas organizations",
+    tracks: ["cyber"],
+    bullets: [
+      "Accepted into a selective program focused on applied cybersecurity consulting, client service, and risk mitigation",
+      "Spring 2027: cybersecurity internship advising a client of the Texas Cyber Clinic",
+      "Preparing now through Google’s Cybersecurity Professional Certificate on Coursera"
+    ] },
+  { when: "Sep 2025 – Present", where: "Austin, TX", role: "Tech Field Analyst", org: "Longhorn Macro Investors",
+    sub: "UT Austin investing organization focused on financial literacy and fundamentals",
+    tracks: ["ai","impl"],
+    bullets: [
+      "Lead the tech-focused pitch group, coordinating research projects and stock pitches across team members",
+      "Research large-cap tech companies and how AI is reshaping industries to build and defend investment theses"
+    ] }
+];
+
+/* ---- Projects: Internship Research ---- */
+const INTERNSHIP = [
+  { id: "newvista", name: "NewVista Advisory Group", meta: "Houston · Summer 2025",
+    intro: "Data analytics internship at an advisory firm that places interim leaders and fractional executives. My work fed the firm's outreach to law firms active in energy M&A.",
+    projects: [
+      { title: "Energy M&A Law Firm Diligence Library", kicker: "Due diligence · Data visualization", tracks: ["impl"],
+        summary: "Profiled 25 law firms active in energy M&A and built an individualized deck for each one.",
+        description: "Researched each firm's practice concentration, deal history, and key people, then turned the findings into a standardized, visual PowerPoint briefing per firm so partners could walk into a conversation prepared.",
+        deck: null, significance: null },
+      { title: "Private AI Research and Deck Assistant", kicker: "Internal tooling · Applied AI", tracks: ["ai","impl"],
+        summary: "Private AI tools that shortened the research cycle behind client-facing presentations.",
+        description: "Built internal AI tooling to gather and summarize firm research and draft presentation content, cutting the time from raw research to a finished briefing and strengthening the analytics behind client outreach.",
+        deck: null, significance: null }
+    ] },
+  { id: "turner", name: "Turner Publishing", meta: "Nashville · Summer 2025",
+    intro: "Business analytics internship at an independent publisher. The question: which Amazon Ads strategies actually pay off for books, and over what time horizon?",
+    projects: [
+      { title: "Unlocking Profitable Amazon Ad Strategies Across ASINs", kicker: "Machine learning · Marketing analytics", tracks: ["ai","impl"],
+        summary: "Which Amazon ad strategy pays off for a book, and over what time horizon? I modeled it across 30, 60, 90, and 180 days.",
+        description: "I built models to maximize each book’s result (ad spend plus incremental gross profit, minus decay) and compared three strategies: minimal spend, spike-then-taper, and consistent spend. Minimal spend won at 30 days because rank and conversion lift take time to build. Consistent spend won at 180 days, once rank stabilized and gross profit overtook spend around day 90. In the 60 to 90 day window the answer depended on each title, so I broke it down book by book. I also flagged decay as the biggest modeling risk, since it was assumed rather than measured, and recommended spike-and-pause tests to measure real decay curves per title.",
+        deck: { title: "Unlocking Profitable Amazon Ad Strategies Across ASINs", slides: Array.from({ length: 10 }, (_, i) => `decks/turner/s-${String(i + 1).padStart(2, "0")}.jpg`) }, significance: null }
+    ] },
+  { id: "taskapeer", name: "taskapeer", meta: "Austin · 2026 – Present",
+    intro: "I am the founding engineer and CTO. taskapeer matches college students who need a task done with students who can do it, and it is live with real users.",
+    projects: [
+      { title: "Two-Sided Marketplace Platform", kicker: "Architecture · Full stack", tracks: ["swe"],
+        summary: "The end-to-end build: architecture, onboarding, admin panel, and release cycles.",
+        description: "Designed and shipped the platform from early architecture and QA checklists through production launch, including onboarding flows, marketplace mechanics for both sides, an admin panel, and domain and DNS setup.",
+        deck: null, significance: null, link: "https://taskapeer1.com" },
+      { title: "AI Peer Matching Engine", kicker: "Claude API · Python", tracks: ["ai","impl","swe"],
+        summary: "Matching logic that pairs posted tasks with the right student, with AI layered in where it helps.",
+        description: "Built the core matching engine in Python and used the Claude API to improve how tasks and helpers are paired, keeping AI in the loop only where it measurably speeds users up.",
+        deck: null, significance: null },
+      { title: "Payments and Trust Layer", kicker: "Stripe Connect · Trust and safety", tracks: ["swe","cyber"],
+        summary: "Stripe Connect payouts and background checks so strangers can safely trade work.",
+        description: "Integrated Stripe Connect for two-sided payments and payouts, and added background checks to the onboarding flow so both sides of the marketplace can trust each other.",
+        deck: null, significance: null }
+    ] }
+];
+
+/* ---- Post-Graduate Program: AI/ML in Business ----
+   SHOW_GRADES: set to true to show each course's letter grade, project score,
+   and the program GPA on the site. Off by default.                         */
+const SHOW_GRADES = false;
+const PROGRAM = {
+  name: "Post Graduate Program in AI & Machine Learning: Business Applications",
+  short: "AI/ML in Business",
+  by: "UT Austin McCombs School of Business · delivered with Great Learning",
+  when: "June 2025 – April 2026",
+  facts: [["7 / 7","Graded courses complete"],["7","Capstone projects shipped"],["100%","Attendance"],["3.66 / 4.33","Program GPA", true]]
+};
+const PGP = [
+  { id: "python", course: "Python Foundations", when: "Summer 2025", grade: "A+", tracks: ["ai","impl"],
+    topics: ["Python fundamentals","Data manipulation with pandas and NumPy","Exploratory data analysis","Analyzing text data"],
+    project: "FoodHub: Restaurant Demand and Customer Behavior",
+    score: "60 / 60",
+    problem: "FoodHub is a New York food-delivery app that connects customers to many restaurants. The data science team wanted to understand restaurant demand and what drives customer satisfaction, using 1,898 orders across 178 restaurants and 14 cuisines.",
+    did: [
+      "Cleaned the order data, including converting unrated orders to missing values so ratings could be analyzed numerically",
+      "Ran univariate and multivariate EDA with histograms, boxplots, point plots, and a correlation heatmap",
+      "Answered 17 business questions, including which restaurants qualify for promotion and FoodHub's net revenue on the dataset"
+    ],
+    results: [["71%","of orders fall on weekends"],["28.3 vs 22.5 min","weekday vs weekend delivery"],["10.5%","of orders take over 60 minutes end to end"]],
+    recs: "Build weekend-specific promotions, tighten prep and delivery times at peak, and use ratings to review high-traffic restaurants with weak feedback.",
+    skills: ["Python","pandas","NumPy","seaborn","matplotlib","EDA","Data cleaning"],
+    quote: "You did an outstanding job across all aspects of the analysis.",
+    deck: stripDeck("FoodHub: Restaurant Demand and Customer Behavior", "foodhub", 24) },
+  { id: "ml", course: "Machine Learning", when: "Fall 2025", grade: "A", tracks: ["ai","impl"],
+    topics: ["Linear regression","Decision trees","Clustering"],
+    project: "AllLife Bank: Personal Loan Propensity Model",
+    score: "56 / 60",
+    problem: "AllLife Bank wanted to turn depositors into personal-loan customers. Last year's campaign converted 9.6% of customers. The task was to predict who will accept a loan, find the attributes that drive it, and tell marketing which segments to target.",
+    did: [
+      "Fixed data-entry errors, bucketed ZIP codes into regions, and dropped Experience because it was collinear with Age",
+      "Built a baseline decision tree, then pre-pruned and post-pruned it with cost-complexity pruning and balanced class weights",
+      "Evaluated with precision and lift at the top 10, 15, and 20% of scored customers to match real outreach capacity",
+      "Turned the final tree into three plain-language targeting segments, with notes on fairness and audit"
+    ],
+    results: [["0.993","test AUC"],["6.6×","lift over the 9.6% base rate (top 15%)"],["~636","expected conversions per 1,000 contacts, vs 96"]],
+    recs: "Start outreach with the top 15% of scored customers, and A/B test the top 10% (higher yield) against the top 20% (more volume).",
+    skills: ["scikit-learn","Decision trees","Cost-complexity pruning","Imbalanced classification","Precision@k / Lift","Model interpretability"],
+    quote: "Strong data preprocessing… actionable insights and practical business recommendations.",
+    deck: stripDeck("AllLife Bank: Personal Loan Propensity Model", "alllife", 40) },
+  { id: "aml", course: "Advanced Machine Learning", when: "Fall 2025", grade: "C+", tracks: ["ai"],
+    topics: ["Bagging and random forest","Boosting","Model tuning"],
+    project: "Employee Promotion Prediction",
+    score: "28 / 60",
+    problem: "JMD Company's HR team spends weeks comparing employees each promotion cycle. Using data on about 55,000 employees, where only 8.5% were promoted, the goal was a model that flags who is likely eligible so HR can review faster and more consistently.",
+    did: [
+      "Quantified the drivers in EDA: promotion rates climb from 3.9% for training scores under 50 to 76.8% at 90+, and award winners are promoted at 44% vs 7.7%",
+      "Imputed and encoded on training data only, then trained five tree-based models on original, SMOTE-oversampled, and undersampled data (15 baselines)",
+      "Tuned the four strongest with RandomizedSearchCV and optimized each model’s decision threshold on validation",
+      "Selected tuned Gradient Boosting on the original data at a 0.31 threshold and confirmed it on an untouched test set"
+    ],
+    results: [["63.3%","of real promotions found in the top 20% of scored employees"],["3.2×","better than reviewing in random order"],["0.80","test ROC AUC"]],
+    recs: "Use the model to rank who HR reviews first rather than to decide promotions, invest in training quality over training volume, and monitor promotion rates by region and department for fairness.",
+    skills: ["Gradient Boosting","AdaBoost","Random forest","SMOTE","Undersampling","RandomizedSearchCV","Fairness review"],
+    quote: null,
+    deck: stripDeck("Promotions Reimagined: Employee Promotion Prediction", "promotions", 56) },
+  { id: "nn", course: "Introduction to Neural Networks", when: "Winter 2025", grade: "C", tracks: ["ai"],
+    topics: ["Neural network fundamentals","Optimizing neural networks"],
+    project: "ReneWind: Predictive Maintenance for Wind Turbines",
+    score: "20 / 60",
+    problem: "ReneWind collects sensor data from wind turbines and wants to predict generator failures before they happen. A missed failure means a full replacement, a caught one means a cheaper repair, and a false alarm costs only an inspection. The data has 40 ciphered sensor features, 20,000 training rows, and a 5.55% failure rate.",
+    did: [
+      "Ran EDA on 40 ciphered sensors and found failure signal spread across about a dozen of them, with no single sensor decisive",
+      "Median-imputed missing values and standardized features, fitting only on training data to prevent leakage",
+      "Built seven neural networks, changing one or two things at a time (depth, SGD vs Adam, dropout, class weights) so each effect could be isolated",
+      "Picked the winner on validation F2, which weights catching failures four times as much as avoiding false alarms, then tested it once on 5,000 unseen turbines"
+    ],
+    results: [["246 of 282","failures caught on the test set"],["0.872 / 0.939","test recall / precision"],["16","extra inspections, the only cost of those catches"]],
+    recs: "Deploy the 3-layer model with Adam, dropout, and class weights: it turns 246 would-be replacements into repairs for the price of 16 extra inspections.",
+    skills: ["Neural networks","Dropout","SGD vs Adam","Class weighting","F2-score / PR-AUC","Cost-sensitive evaluation"],
+    quote: null,
+    deck: stripDeck("ReneWind: Predictive Maintenance for Wind Turbines", "renewind", 35) },
+  { id: "nlp", course: "Natural Language Processing with Generative AI", when: "Winter 2026", grade: "A+", tracks: ["ai","impl","swe"],
+    topics: ["Word embeddings","Attention and transformers","LLMs and prompt engineering","Retrieval-augmented generation"],
+    project: "Medical Assistant: RAG over the Merck Manual",
+    score: "60 / 60",
+    problem: "Clinicians face information overload, and trusted references are hard to search quickly. The goal was a retrieval-augmented assistant that answers clinical questions from the 4,000+ page Merck Manual and stays grounded in that source.",
+    did: [
+      "Benchmarked Mistral-7B-Instruct alone, then with prompt engineering, on five clinical questions",
+      "Built a RAG pipeline: chunked the manual (1,000 tokens, 200 overlap), embedded it with all-MiniLM-L6-v2, and stored it in Chroma",
+      "Tested retrieval depth (k = 3, 4, 6) and generation settings, and wrote a system prompt that refuses to answer outside the retrieved context",
+      "Scored answers with an LLM-as-a-judge for groundedness and relevance"
+    ],
+    results: [["4–5 / 5","groundedness on every question"],["4–5 / 5","relevance on every question"],["4,000+","manual pages indexed"]],
+    recs: "Use RAG rather than a bare LLM for clinical knowledge tools, position it as decision support with clinician oversight, and keep an evaluation pipeline running as the knowledge base updates.",
+    skills: ["RAG","LangChain","Chroma","Hugging Face","Mistral 7B","Prompt engineering","LLM-as-a-judge"],
+    quote: "Following an extensive review of your project, I am pleased to say that it’s quite impressive.",
+    deck: stripDeck("Medical Assistant: RAG over the Merck Manual", "medical", 39) },
+  { id: "cv", course: "Introduction to Computer Vision", when: "Winter 2026", grade: "A+", tracks: ["ai"],
+    topics: ["Image processing","Convolutional neural networks","Transfer learning"],
+    project: "HelmNet: Safety Helmet Detection",
+    score: "60 / 60",
+    problem: "SafeGuard Corp needed to automate helmet-compliance checks on construction and industrial sites, where manual monitoring is slow and error-prone. The task was an image classifier that separates workers with and without helmets, ready for a real-time monitoring system.",
+    did: [
+      "Explored 631 labeled site images with varied lighting, poses, and background clutter",
+      "Converted images to grayscale to focus on helmet shape, normalized pixels, and made stratified 70/15/15 splits",
+      "Built and compared a custom CNN, VGG-16 transfer learning, VGG-16 with a dense head and dropout, and that model with data augmentation",
+      "Selected the augmented VGG-16 model for its stability and generalization, prioritizing recall on missed violations"
+    ],
+    results: [["4","architectures compared"],["631","labeled site images"],["Recall-first","to minimize missed violations"]],
+    recs: "Pilot the model before a full rollout, tune the threshold toward catching violations, monitor for drift, retrain quarterly, and extend it to other protective equipment.",
+    skills: ["CNNs","Transfer learning","VGG-16","Data augmentation","Keras","Image preprocessing"],
+    quote: "Visual appeal and flow contribute to a professional final product.",
+    deck: stripDeck("HelmNet: Safety Helmet Detection", "helmnet", 28) },
+  { id: "deploy", course: "Model Deployment", when: "Spring 2026", grade: "A+", tracks: ["ai","swe","impl"],
+    topics: ["Model deployment","Containerization"],
+    project: "SuperKart: Sales Forecasting, Built and Deployed",
+    score: "60 / 60",
+    problem: "SuperKart, a supermarket chain, needed next-quarter sales forecasts for each product and store to plan inventory and regional strategy, delivered as a tool that could plug into its systems.",
+    did: [
+      "Imputed missing values by group, engineered a store-age feature, and cleaned inconsistent labels in 8,523 product-store records",
+      "Built a scikit-learn Pipeline and compared a decision tree, random forest, gradient boosting, and XGBoost, tuned with 5-fold GridSearchCV",
+      "Serialized the winning XGBoost model and served it through a Flask REST API in a Docker container on Hugging Face Spaces",
+      "Built a Streamlit front end that calls the API for real-time predictions"
+    ],
+    results: [["980","test RMSE (best of 8 models)"],["0.65","test R²"],["~32%","feature importance from product price"]],
+    recs: "Feed the model into inventory planning, put high-price products in premium stores, target growth in Tier 3 cities, and retrain each quarter.",
+    skills: ["XGBoost","GridSearchCV","scikit-learn Pipelines","Flask","Docker","Streamlit","Hugging Face Spaces","REST APIs"],
+    quote: "Both the backend (Flask API) and frontend (Streamlit application) are successfully deployed.",
+    deck: stripDeck("SuperKart: Sales Forecasting, Built and Deployed", "superkart", 25) }
+];
+
+/* ---- Cyber Clinic ---- */
+const CYBER_MODULES = [
+  { t: "Foundations of Cybersecurity", d: "Core concepts, security frameworks, and how security teams work." },
+  { t: "Play It Safe: Manage Security Risks", d: "Risk management, frameworks, and security audits." },
+  { t: "Connect and Protect: Networks and Network Security", d: "How networks work and how to harden them." },
+  { t: "Tools of the Trade: Linux and SQL", d: "Command line and database skills analysts use daily." },
+  { t: "Assets, Threats, and Vulnerabilities", d: "Protecting assets and finding weak points before attackers do." },
+  { t: "Sound the Alarm: Detection and Response", d: "Incident detection, response, and recovery." },
+  { t: "Automate Cybersecurity Tasks with Python", d: "Scripting routine security work." },
+  { t: "Put It to Work: Prepare for Cybersecurity Jobs", d: "Applying the skills to real scenarios." }
+];
+
+const SKILLS = [
+  { group: "Languages", items: [["Python",["ai","swe","impl"]],["JavaScript",["swe"]],["SQL",["ai","swe"]],["R",["ai"]]] },
+  { group: "Build", items: [["React",["swe"]],["Claude Code",["swe","impl"]],["Claude API",["ai","impl","swe"]],["n8n",["impl"]],["Stripe Connect",["swe"]]] },
+  { group: "AI / ML", items: [["scikit-learn",["ai"]],["pandas",["ai","impl"]],["XGBoost",["ai"]],["Neural networks",["ai"]],["Keras",["ai"]],["Computer vision",["ai"]],["NLP",["ai"]],["RAG",["ai","impl","swe"]],["LangChain",["ai","impl","swe"]],["LLMs",["ai","impl"]],["Data visualization",["ai","impl"]]] },
+  { group: "Deploy", items: [["Flask",["swe","ai"]],["Docker",["swe","impl"]],["Streamlit",["swe","impl"]],["Hugging Face",["ai","swe"]],["REST APIs",["swe","impl"]],["Data pipelines",["ai","impl","swe"]]] },
+  { group: "Security", items: [["Risk assessment",["cyber"]],["Access control",["cyber"]],["Network security",["cyber"]],["Incident response",["cyber"]],["Encryption",["cyber"]],["Policy drafting",["cyber"]]] },
+  { group: "Client work", items: [["Requirements gathering",["impl","swe","cyber"]],["Stakeholder communication",["impl","cyber"]],["Technical project management",["swe","impl"]],["Cross-team coordination",["impl"]]] },
+];
+/* ---- Interests: add a photo path or URL to `photo` (e.g. "img/scuba.jpg") ---- */
+const INTERESTS = [
+  { id: "mountaineering", name: "Mountaineering", kicker: "Outdoors", line: null, photo: "img/mountaineering.jpg", pos: "50% 40%", size: "big", tone: ["#DCE6F7", "#5C74A8"] },
+  { id: "scuba", name: "SCUBA", kicker: "Under water", line: null, photo: "img/scuba.jpg", pos: "50% 45%", tone: ["#3FC7C0", "#0E3B5C"] },
+  { id: "seafaring", name: "Seafaring", kicker: "Sailing", line: null, photo: "img/seafaring.jpg", pos: "50% 55%", size: "wide", tone: ["#F2B58C", "#1E3A6B"] },
+  { id: "fitness", name: "Fitness", kicker: "Training", line: null, photo: "img/fitness.jpg", pos: "50% 35%", tone: ["#FF9A5A", "#5A2A14"] },
+  { id: "basketball", name: "Basketball", kicker: "Team sport", line: null, photo: "img/basketball.jpg", pos: "60% 60%", tone: ["#F0B544", "#4A2F10"] },
+  { id: "watersports", name: "Water Sports", kicker: "Wakesurfing", line: null, photo: "img/watersports.jpg", pos: "50% 35%", tone: ["#7FD3F0", "#163A55"] },
+  { id: "music", name: "Country Music", kicker: "Bass guitar", line: "I play bass guitar.", photo: "img/music.jpg", pos: "50% 40%", tone: ["#C59BFF", "#2C1F52"] },
+  { id: "mentorship", name: "Youth Mentorship", kicker: "Community", line: "Tutored and mentored K-7 students with Youth Encouragement Services in Nashville.", photo: "img/mentorship.jpg", pos: "50% 30%", tone: ["#7FE0B0", "#123D33"] }
+];
+/* ===================== END CONTENT ===================== */
+
+const { useState, useEffect, useRef, useLayoutEffect } = React;
+const html = htm.bind(React.createElement);
+const REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const colorOf = id => (TRACKS.find(t => t.id === id) || TRACKS[1]).c;
+const hits = (lens, tracks) => lens === "all" || (tracks || []).includes(lens);
+
+const Arrow = () => html`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12L12 4M6 4h6v6"/></svg>`;
+const Plus = () => html`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M2 8h12"/></svg>`;
+
+/* ---- tilt + spotlight card ---- */
+function Tilt({ className = "", children, onClick, ...rest }) {
+  const ref = useRef(null);
+  const move = e => {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--mx", x * 100 + "%");
+    el.style.setProperty("--my", y * 100 + "%");
+    if (!REDUCE && r.height < 420) {
+      el.style.setProperty("--ry", (x - .5) * 5 + "deg");
+      el.style.setProperty("--rx", (.5 - y) * 5 + "deg");
+    }
+  };
+  const leave = () => { const el = ref.current; if (!el) return; el.style.setProperty("--rx","0deg"); el.style.setProperty("--ry","0deg"); };
+  return html`<div ref=${ref} className=${"card " + className} onPointerMove=${move} onPointerLeave=${leave} onClick=${onClick} ...${rest}>${children}</div>`;
+}
+
+function TrackTags() { return null; }
+function _TrackTagsOld({ tracks }) {
+  return tracks && tracks.length ? html`<div className="tags">${tracks.map(t => html`<span key=${t} className="tag" style=${{"--c": colorOf(t)}}>${TRACKS.find(x => x.id === t).label}</span>`)}</div>` : null;
+}
+
+/* ---- page background: blurred photo + falling snow that moves away from the cursor ---- */
+function Mountains() {
+  const cv = useRef(null);
+  useEffect(() => {
+    const c = cv.current, ctx = c.getContext("2d");
+    let W = 0, H = 0, raf, mx = 0, tx = 0, px = -9999, py = -9999;
+    const rnd = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let x = Math.imul(seed ^ seed >>> 15, 1 | seed); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; };
+    const flakes = Array.from({ length: 150 }, (_, i) => { const r = rnd(900 + i); return { x: r(), y: r(), z: .3 + r() * .7, s: r() * 6.28 }; });
+    const size = () => { W = innerWidth; H = innerHeight; const d = Math.min(devicePixelRatio || 1, 2); c.width = W * d; c.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    const pm = e => { tx = e.clientX / W - .5; px = e.clientX; py = e.clientY; };
+    addEventListener("pointermove", pm);
+    const frame = () => {
+      mx += (tx - mx) * .05; ctx.clearRect(0, 0, W, H);
+      for (const f of flakes) {
+        f.y += .0008 * (f.z + .25); f.s += .01; f.x += Math.sin(f.s) * .0004 + mx * .0006;
+        if (f.y > 1.02) f.y = -.02; if (f.x > 1.02) f.x = -.02; if (f.x < -.02) f.x = 1.02;
+        let x = f.x * W, y = f.y * H; const dx = x - px, dy = y - py, d2 = dx * dx + dy * dy;
+        if (d2 < 14400) { const d = Math.sqrt(d2) || 1, k = (120 - d) / 120; f.x += dx / d * k * .004; f.y += dy / d * k * .003; x = f.x * W; y = f.y * H; }
+        ctx.fillStyle = `rgba(255,255,255,${.3 + f.z * .5})`; ctx.beginPath(); ctx.arc(x, y, .6 + f.z * 1.7, 0, 6.283); ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    size(); addEventListener("resize", size);
+    if (!REDUCE) frame();
+    return () => { cancelAnimationFrame(raf); removeEventListener("resize", size); removeEventListener("pointermove", pm); };
+  }, []);
+  return html`<${React.Fragment}><div className="page-bg" aria-hidden="true"></div><canvas ref=${cv} className="scene" aria-hidden="true"></canvas><//>`;
+}
+
+function Name() {
+  const split = (w, cls) => html`<span className=${cls}>${[...w].map((ch, i) => html`<span key=${i} className="ch">${ch}</span>`)}</span>`;
+  return html`<h1>${split("Jackson", "l1")}${split("Montgomery", "l2")}</h1>`;
+}
+
+function Nav({ active }) {
+  const items = [["about","About"],["experience","Experience"],["campus","Campus"],["projects","Projects"],["program","AI/ML Program"],["cyber","Cybersecurity"],["skills","Skills"],["interests","Interests"],["contact","Contact"]];
+  return html`<nav className="nav"><div className="wrap nav-in">
+    <a className="mark" href="#top">Jackson Montgomery</a>
+    <div className="nav-links">${items.map(([id, l]) => html`<a key=${id} href=${"#" + id} className=${"mono " + (active === id ? "on" : "")}>${l}</a>`)}</div>
+  </div></nav>`;
+}
+
+function Hero({ lens, setLens }) {
+  const p = PITCH[lens];
+  const ref = useRef(null);
+  useEffect(() => {
+    if (REDUCE) return;
+    const el = ref.current; let raf = 0, tx = 0, ty = 0, x = 0, y = 0;
+    const pm = e => { const r = el.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width - .5; ty = (e.clientY - r.top) / r.height - .5; };
+    const tick = () => { x += (tx - x) * .06; y += (ty - y) * .06; el.style.setProperty("--px", (-x * 18).toFixed(2) + "px"); el.style.setProperty("--py", (-y * 12 + Math.min(scrollY, 900) * .25).toFixed(2) + "px"); raf = requestAnimationFrame(tick); };
+    el.addEventListener("pointermove", pm); tick();
+    return () => { cancelAnimationFrame(raf); el.removeEventListener("pointermove", pm); };
+  }, []);
+  return html`<header className="hero" id="top" ref=${ref}>
+    <img className="hero-img" src="img/hero.jpg" alt="Snowy ski slope with a volcanic peak in the distance" />
+    <div className="wrap hero-in">
+      <div className="eyebrow mono">Informatics at UT Austin, looking for a Summer 2027 internship</div>
+      <${Name} />
+      <div className="lens">
+        <div className="lens-label mono">Show me what fits a role in</div>
+        <div className="lens-row" role="tablist">
+          ${TRACKS.map(t => html`<button key=${t.id} role="tab" aria-selected=${lens === t.id} className=${"lens-btn " + (lens === t.id ? "on" : "")} style=${{"--c": t.c}} onClick=${() => setLens(t.id)}><i></i>${t.label}</button>`)}
+        </div>
+        <p className="pitch" key=${lens}><span>${p.map((s, i) => i % 2 ? html`<b key=${i}>${s}</b>` : s)}</span></p>
+      </div>
+      <div className="cta">
+        <a className="btn pri" href="#projects">See the work</a>
+        <a className="btn" href=${LINKS.linkedin} target="_blank" rel="noopener">LinkedIn <${Arrow}/></a>
+        <span className="btn btn-note" tabIndex="0" title="jaxmorgan43 holds taskapeer’s codebase. taskapeer is a business, so the repositories are private.">GitHub · jaxmorgan43 (private)</span>
+        <a className="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>`;
+}
+
+function Count({ to, suffix = "", dec = 0 }) {
+  const [v, setV] = useState(to);
+  const ref = useRef(null);
+  useEffect(() => {
+    if (REDUCE || !("IntersectionObserver" in window)) return;
+    let done = false;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting || done) return; done = true;
+      const t0 = performance.now();
+      const step = n => { const k = Math.min(1, (n - t0) / 1100), ease = 1 - Math.pow(1 - k, 3); setV(to * ease); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+    io.observe(ref.current); return () => io.disconnect();
+  }, []);
+  return html`<b ref=${ref}>${v.toFixed(dec)}${suffix}</b>`;
+}
+
+function Stats() {
+  return html`<div className="stats">
+    <div className="stat"><${Count} to=${3.71} dec=${2} /><span className="mono">GPA · B.S. Informatics</span></div>
+    <div className="stat"><${Count} to=${25} /><span className="mono">Diligence decks shipped</span></div>
+    <div className="stat"><${Count} to=${7} /><span className="mono">Graded AI/ML capstones</span></div>
+    <div className="stat"><${Count} to=${1} /><span className="mono">Marketplace live in production</span></div>
+  </div>`;
+}
+
+function About() {
+  return html`<section id="about"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">About</span><h2>Hi, I’m Jackson.</h2></div></div>
+    <div className="about-grid">
+    <figure className="portrait"><img src="img/portrait.jpg" alt="Jackson Montgomery" /></figure>
+    <div className="prose">
+      <p>I’m a junior at <b>UT Austin</b> studying Informatics, with a Minor in Business Foundations and a Certificate in AI/ML in Business from McCombs. I also completed McCombs' Post Graduate Program in AI and Machine Learning, where I did seven graded projects, from data analysis to a medical Q&A assistant and a deployed forecasting app.</p>
+      <p>Most of what I’ve done so far comes down to taking a messy business question and turning it into something people can use. At <b>NewVista</b> I built 25 briefing decks for energy M&A outreach. At <b>Turner Publishing</b> I modeled Amazon ad spend to help decide where the budget should go. At <b>taskapeer</b> I’m the CTO, building a marketplace that real students use.</p>
+      <p>This year I’m in the <b>Texas Cyber Clinic</b>, and I lead the tech pitch group at <b>Longhorn Macro Investors</b>.</p>
+    </div>
+    </div>
+  </div></section>`;
+}
+
+function Timeline({ lens, id, kicker, title, items }) {
+  return html`<section id=${id}><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">${kicker}</span><h2>${title}</h2></div></div>
+    <div className="tl">
+      ${items.map((x, i) => {
+        const on = hits(lens, x.tracks);
+        return html`<${Tilt} key=${i} className=${"m " + (on ? "" : "dim")}>
+          <div className="tl-item">
+            <div className="tl-when mono">${x.when}<em>${x.where}</em></div>
+            <div>
+              <div className="role">${x.role}, <span className="org">${x.org}</span></div>
+              <div className="sub">${x.sub}</div>
+              <ul className="bul">${x.bullets.map((b, j) => html`<li key=${j}>${b}</li>`)}${x.learned ? html`<li className="learned"><span>What I learned</span>${x.learned}</li>` : null}</ul>
+              <${TrackTags} tracks=${x.tracks} />
+            </div>
+          </div>
+        <//>`;
+      })}
+    </div>
+  </div></section>`;
+}
+
+function Soon({ children }) { return html`<span className="soon mono">${children}</span>`; }
+
+function ProjectCard({ p, lens, mode }) {
+  const [open, setOpen] = useState(false);
+  const on = hits(lens, p.tracks);
+  const toggle = () => setOpen(o => !o);
+  const key = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } };
+  return html`<${Tilt} className=${"pcard m " + (open ? "open " : "") + (on ? "" : "dim")} onClick=${toggle} role="button" tabIndex="0" aria-expanded=${open} onKeyDown=${key}>
+    <div className="pcard-top">
+      <div>
+        <div className="kicker mono">${mode === "pg" ? p.area : p.kicker}</div>
+        <h4>${p.title}</h4>
+        ${p.summary ? html`<p className="summary">${p.summary}</p>` : null}
+      </div>
+      <span className="plus" aria-hidden="true"><${Plus}/></span>
+    </div>
+    <div className="expand"><div>
+      <dl className="fields" onClick=${e => e.stopPropagation()}>
+        ${mode === "pg" ? html`
+          <div className="field"><dt className="mono">Problem</dt><dd>${p.problem || html`<${Soon}>Problem statement coming soon<//>`}</dd></div>
+          <div className="field"><dt className="mono">Deliverable</dt><dd>${p.deck ? html`<${DeckButton} deck=${p.deck} />` : html`<${Soon}>Slide deck coming soon<//>`}</dd></div>
+          <div className="field"><dt className="mono">Skills learned</dt><dd><div className="chips">${p.skills.map(s => html`<span key=${s} className="chip">${s}</span>`)}</div></dd></div>
+        ` : html`
+          <div className="field"><dt className="mono">What I did</dt><dd>${p.description}</dd></div>
+          <div className="field"><dt className="mono">Deliverable</dt><dd style=${{display:"flex",flexWrap:"wrap",gap:"8px"}}>
+            ${p.deck ? html`<${DeckButton} deck=${p.deck} />` : html`<${Soon}>Slide deck coming soon<//>`}
+            ${p.link ? html`<a className="btn" href=${p.link} target="_blank" rel="noopener">Visit live site <${Arrow}/></a>` : null}
+          </dd></div>
+          <div className="field"><dt className="mono">Impact</dt><dd>${p.significance || html`<${Soon}>Impact statement coming soon<//>`}</dd></div>
+        `}
+      </dl>
+    </div></div>
+    <${TrackTags} tracks=${p.tracks} />
+  <//>`;
+}
+
+function Projects({ lens, openCourse }) {
+  const [tab, setTab] = useState("intern");
+  const [org, setOrg] = useState(INTERNSHIP[0].id);
+  const tabsRef = useRef(null);
+  const [bar, setBar] = useState({ left: 0, width: 0 });
+  useLayoutEffect(() => {
+    const place = () => { const el = tabsRef.current && tabsRef.current.querySelector(".tab.on"); if (el) setBar({ left: el.offsetLeft, width: el.offsetWidth }); };
+    place(); addEventListener("resize", place); return () => removeEventListener("resize", place);
+  }, [tab]);
+  const internCount = INTERNSHIP.reduce((n, o) => n + o.projects.length, 0);
+  const cur = INTERNSHIP.find(o => o.id === org);
+  const matchIn = o => lens !== "all" && o.projects.some(p => hits(lens, p.tracks));
+  return html`<section id="projects"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Projects</span><h2>Projects</h2></div><p>Click a project to see the details.</p></div>
+    <div className="tabs" ref=${tabsRef} role="tablist">
+      <button role="tab" aria-selected=${tab === "intern"} className=${"tab " + (tab === "intern" ? "on" : "")} onClick=${() => setTab("intern")}>Internship Research <small>${internCount}</small></button>
+      <button role="tab" aria-selected=${tab === "pg"} className=${"tab " + (tab === "pg" ? "on" : "")} onClick=${() => setTab("pg")}>Post-Graduate Program <small>${PGP.length}</small></button>
+      <span className="tab-bar" style=${{ left: bar.left + "px", width: bar.width + "px" }}></span>
+    </div>
+    ${tab === "intern" ? html`
+      <p className="cat-note">Work produced inside a company, for that company. Each project shows what I built, the deck or deliverable I handed over, and how the company used it.</p>
+      <div className="orgs">${INTERNSHIP.map(o => html`<button key=${o.id} className=${"org-btn " + (org === o.id ? "on" : "")} onClick=${() => setOrg(o.id)}>
+        <b>${o.name}</b><span className="mono">${o.meta}</span>
+        <span className=${"match-tag mono " + (matchIn(o) ? "on" : "")}>● Match</span>
+      </button>`)}</div>
+      <p className="org-intro" key=${org}>${cur.intro}</p>
+      <div className="pgrid">${cur.projects.map(p => html`<${ProjectCard} key=${org + p.title} p=${p} lens=${lens} mode="in" />`)}</div>
+    ` : html`
+      <p className="cat-note">One graded capstone project closes every course in my ${PROGRAM.short} program. Pick one to open the full breakdown: the prompt, what I built, the results, and the skills.</p>
+      <div className="pg-grid">${PGP.map((c, i) => html`<${Tilt} key=${c.id} className=${"pg-mini m " + (hits(lens, c.tracks) ? "" : "dim")} role="button" tabIndex="0"
+          onClick=${() => openCourse(c.id)} onKeyDown=${e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCourse(c.id); } }}>
+          <div className="pcard-top">
+            <div>
+              <span className="num">${String(i + 1).padStart(2, "0")}</span>
+              <div className="kicker mono">${c.course}</div>
+              <h4>${c.project}</h4>
+              <p className="summary">${c.results[0][0]} ${c.results[0][1]}</p>
+            </div>
+            <span className="plus" aria-hidden="true"><${Arrow}/></span>
+          </div>
+        <//>`)}</div>
+    `}
+  </div></section>`;
+}
+
+function Program({ lens, sel, setSel }) {
+  const idx = Math.max(0, PGP.findIndex(c => c.id === sel));
+  const c = PGP[idx];
+  const go = d => setSel(PGP[(idx + d + PGP.length) % PGP.length].id);
+  const railKey = e => {
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+  };
+  const facts = PROGRAM.facts.filter(f => !f[2] || SHOW_GRADES);
+  return html`<section id="program"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Postgraduate Program</span><h2>${PROGRAM.short}</h2></div><p>${PROGRAM.by}. ${PROGRAM.when}.</p></div>
+    <div className="pgp-facts">${facts.map(([v, l]) => html`<div key=${l}><b>${v}</b><span className="mono">${l}</span></div>`)}</div>
+    <p className="cat-note" style=${{marginTop:"22px"}}>${PROGRAM.name}. Seven graded courses, each finished with a business case I had to solve end to end. Pick a course to see the project.</p>
+    <div className="formats">
+      <div className="formats-h">How projects were submitted</div>
+      <p>Each capstone could be turned in one of two ways:</p>
+      <div className="formats-grid">
+        <div><b>Low-code</b><span>A PowerPoint presentation explaining the data I processed, how it applied to the business prompt, and what the solution was (EDA, univariate and multivariate analysis, modeling, and recommendations).</span></div>
+        <div><b>Full-code</b><span>A Jupyter notebook (.ipynb) explaining all of the Python code behind the analysis and models.</span></div>
+      </div>
+    </div>
+
+    <div className="pgp">
+      <div className="rail" role="tablist" aria-label="Courses" onKeyDown=${railKey}>
+        ${PGP.map((x, i) => html`<button key=${x.id} role="tab" aria-selected=${x.id === c.id} tabIndex=${x.id === c.id ? 0 : -1}
+            className=${"rail-item " + (x.id === c.id ? "on " : "") + (hits(lens, x.tracks) ? "" : "dim")} onClick=${() => setSel(x.id)}>
+          <span className="rail-n mono">${String(i + 1).padStart(2, "0")}</span>
+          <span className="rail-t"><b>${x.course}</b><span className="mono">${x.when}${SHOW_GRADES ? " · " + x.grade : ""}</span></span>
+        </button>`)}
+      </div>
+
+      <article className="panel" key=${c.id}>
+        <div className="panel-top">
+          <div>
+            <div className="kicker mono">Course ${String(idx + 1).padStart(2, "0")} · ${c.course}</div>
+            <div className="chips" style=${{marginTop:"8px"}}>${c.topics.map(t => html`<span key=${t} className="chip">${t}</span>`)}</div>
+          </div>
+          <div className="pager">
+            <button className="pg-btn" onClick=${() => go(-1)} aria-label="Previous course">←</button>
+            <button className="pg-btn" onClick=${() => go(1)} aria-label="Next course">→</button>
+          </div>
+        </div>
+
+        <div className="proj-label mono">Final project · ${c.format || "Low-code presentation"}${SHOW_GRADES ? " · " + c.score : ""}</div>
+        <h3 className="proj-title">${c.project}</h3>
+
+        <div className="metrics">${c.results.map(([v, l], i) => html`<div key=${i} className="metric" style=${{animationDelay: i * 70 + "ms"}}><b>${v}</b><span>${l}</span></div>`)}</div>
+
+        <dl className="fields">
+          <div className="field"><dt className="mono">The prompt</dt><dd>${c.problem}</dd></div>
+          <div className="field"><dt className="mono">What I did</dt><dd><ul className="bul" style=${{marginTop:0}}>${c.did.map((d, i) => html`<li key=${i}>${d}</li>`)}</ul></dd></div>
+          <div className="field"><dt className="mono">Next steps</dt><dd>${c.recs}</dd></div>
+          <div className="field"><dt className="mono">Skills used</dt><dd><div className="chips">${c.skills.map(s => html`<span key=${s} className="chip">${s}</span>`)}</div></dd></div>
+          ${c.quote ? html`<div className="field"><dt className="mono">Evaluator</dt><dd><blockquote className="quote">“${c.quote}”</blockquote></dd></div>` : null}
+          <div className="field"><dt className="mono">Deliverable</dt><dd>${c.deck ? html`<${DeckButton} deck=${c.deck} />` : html`<${Soon}>Slide deck coming soon<//>`}</dd></div>
+        </dl>
+        <${TrackTags} tracks=${c.tracks} />
+      </article>
+    </div>
+  </div></section>`;
+}
+
+/* ---- in-page slide deck viewer ---- */
+const DeckBus = { open: null };
+function DeckButton({ deck }) {
+  return html`<button className="btn" onClick=${e => { e.stopPropagation(); DeckBus.open && DeckBus.open(deck); }}>Open slide deck <${Arrow}/></button>`;
+}
+function stripDeck(title, name, n) { return { title, strip: { base: `decks/pgp/${name}`, n, per: 8 } }; }
+const deckCount = d => d.slides ? d.slides.length : d.strip.n;
+function Slide({ deck, i, className }) {
+  if (deck.slides) return html`<img className=${className} src=${deck.slides[i]} alt=${"Slide " + (i + 1)} loading="lazy" />`;
+  const { base, per } = deck.strip, k = Math.floor(i / per), j = i % per;
+  return html`<div className=${className + " slide-strip"} role="img" aria-label=${"Slide " + (i + 1)}
+    style=${{ backgroundImage: `url(${base}-${k + 1}.jpg)`, backgroundSize: `100% ${per * 100}%`, backgroundPosition: `0 ${(j / (per - 1)) * 100}%` }}></div>`;
+}
+function DeckViewer() {
+  const [deck, setDeck] = useState(null);
+  const [i, setI] = useState(0);
+  useEffect(() => { DeckBus.open = d => { setDeck(d); setI(0); }; return () => { DeckBus.open = null; }; }, []);
+  useEffect(() => {
+    if (!deck) return;
+    const n = deckCount(deck);
+    const key = e => { if (e.key === "Escape") setDeck(null); if (e.key === "ArrowRight") setI(x => Math.min(n - 1, x + 1)); if (e.key === "ArrowLeft") setI(x => Math.max(0, x - 1)); };
+    addEventListener("keydown", key); document.body.style.overflow = "hidden";
+    return () => { removeEventListener("keydown", key); document.body.style.overflow = ""; };
+  }, [deck]);
+  useEffect(() => { const el = document.querySelector(".deck-thumbs .on"); if (el) el.scrollIntoView({ block: "nearest", inline: "center", behavior: REDUCE ? "auto" : "smooth" }); }, [i, deck]);
+  if (!deck) return null;
+  const n = deckCount(deck);
+  return html`<div className="deck-modal" role="dialog" aria-modal="true" aria-label=${deck.title} onClick=${() => setDeck(null)}>
+    <div className="deck-box" onClick=${e => e.stopPropagation()}>
+      <div className="deck-top"><span>${deck.title}</span><button className="deck-x" onClick=${() => setDeck(null)} aria-label="Close">Close ✕</button></div>
+      <div className="deck-stage">
+        <${Slide} deck=${deck} i=${i} className="deck-slide" />
+      </div>
+      <div className="deck-nav">
+        <button className="pg-btn" onClick=${() => setI(Math.max(0, i - 1))} disabled=${i === 0} aria-label="Previous slide">←</button>
+        <span>${i + 1} / ${n}</span>
+        <button className="pg-btn" onClick=${() => setI(Math.min(n - 1, i + 1))} disabled=${i === n - 1} aria-label="Next slide">→</button>
+      </div>
+      <div className="deck-thumbs">${Array.from({ length: n }, (_, k) => html`<button key=${k} className=${k === i ? "on" : ""} onClick=${() => setI(k)} aria-label=${"Go to slide " + (k + 1)}><${Slide} deck=${deck} i=${k} className="deck-thumb" /></button>`)}</div>
+    </div>
+  </div>`;
+}
+
+const TERM = {
+  fall: [
+    ["pr","$ clinic --semester fall"],["","loading Applied Cybersecurity Foundations"],
+    ["ok","✓ risk assessment and tracking"],["ok","✓ access control + 2FA"],["ok","✓ encryption"],
+    ["ok","✓ network security"],["ok","✓ ransomware tabletop"],["ok","✓ incident response and recovery"],
+    ["","status: in progress"]
+  ],
+  spring: [
+    ["pr","$ clinic --semester spring --client texas-org"],["","assigning team to client engagement"],
+    ["ok","✓ scope agreed with organization leaders"],["ok","✓ assess risk and security posture"],
+    ["ok","✓ recommend fixes in plain language"],["ok","✓ deliver presentation + written report"],
+    ["","status: begins Spring 2027"]
+  ]
+};
+
+function Terminal({ phase }) {
+  const lines = TERM[phase];
+  const [n, setN] = useState(REDUCE ? lines.length : 0);
+  useEffect(() => {
+    if (REDUCE) { setN(lines.length); return; }
+    setN(0); let i = 0;
+    const id = setInterval(() => { i++; setN(i); if (i >= lines.length) clearInterval(id); }, 260);
+    return () => clearInterval(id);
+  }, [phase]);
+  return html`<div className="terminal" aria-label="Clinic progress">
+    <div className="term-bar"><i></i><i></i><i></i><span>texas-cyber-clinic ~ ${phase}</span></div>
+    <div className="term-body">${lines.slice(0, n).map(([c, t], i) => html`<div key=${phase + i} className=${c}>${t}</div>`)}<span className="caret"></span></div>
+  </div>`;
+}
+
+function Cyber({ lens }) {
+  const [phase, setPhase] = useState("now");
+  const on = hits(lens, ["cyber"]);
+  return html`<section id="cyber" className=${"m " + (on ? "" : "dim")}><div className="wrap">
+    <div className="sec-head"><div><span className="k mono" style=${{color:"var(--cyber)"}}>Beyond the resume</span><h2>Cybersecurity</h2></div></div>
+    <div className="cy-top">
+      <div>
+        <div className="phase" role="tablist">
+          <button role="tab" aria-selected=${phase === "now"} className=${"mono " + (phase === "now" ? "on" : "")} onClick=${() => setPhase("now")}>Fall 2026 · Google Certificate and Applied Cybersecurity Foundations Course</button>
+          <button role="tab" aria-selected=${phase === "spring"} className=${"mono " + (phase === "spring" ? "on" : "")} onClick=${() => setPhase("spring")}>Spring 2027 · Client internship</button>
+        </div>
+        ${phase === "now" ? html`<div className="phase-body" key="n">
+          <h3>Google Certificate and Applied Cybersecurity Foundations Course</h3>
+          <p>This fall I’m taking Google’s Cybersecurity Professional Certificate on Coursera alongside the Texas Cyber Clinic’s Applied Cybersecurity Foundations course. Both prepare me to advise clients on cybersecurity this spring, when I intern for a client of the Texas Cyber Clinic.</p>
+        </div>` : html`<div className="phase-body" key="s">
+          <h3>Cybersecurity internship with a Texas Cyber Clinic client</h3>
+          <p>In Spring 2027 I’ll work as an intern for a client of the Texas Cyber Clinic, a Texas small business, public sector organization, or nonprofit, advising them on their security as part of a supervised team.</p>
+          <ul className="bul">
+            <li>Assess the organization’s risk and security posture</li>
+            <li>Give its leaders recommendations they can actually carry out</li>
+            <li>Deliver a final presentation and a written report</li>
+          </ul>
+        </div>`}
+      </div>
+    </div>
+    ${phase === "now" ? html`<div className="mods-head mono">What the Google Certificate covers</div>
+    <div className="mods">${CYBER_MODULES.map((m, i) => html`<div key=${i} className="mod"><b>${m.t}</b><p>${m.d}</p></div>`)}</div>` : null}
+  </div></section>`;
+}
+
+function Education() {
+  return html`<section id="education"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Education and certifications</span><h2>Training</h2></div></div>
+    <div className="edu">
+      <${Tilt}>
+        <div className="kicker mono">Austin, TX · Expected May 2028</div>
+        <h4>The University of Texas at Austin</h4>
+        <div className="meta mono">B.S. Informatics · GPA 3.71</div>
+        <ul className="bul">
+          <li>Minor in Business Foundations, McCombs School of Business</li>
+          <li>Certificate in AI/ML in Business, McCombs School of Business</li>
+          <li>Dean's Honor List, Cum Laude (Spring 2025)</li>
+        </ul>
+      <//>
+      <${Tilt}>
+        <div className="kicker mono">June 2025 – April 2026 · Alumnus</div>
+        <h4>Post Graduate Program in AI & ML: Business Applications</h4>
+        <div className="meta mono">UT Austin McCombs · Great Learning</div>
+        <ul className="bul">
+          <li>Seven graded courses: Python, ML, advanced ML, neural networks, NLP with GenAI, computer vision, and model deployment</li>
+          <li>Every course closed with a business-case capstone, from EDA through a deployed Flask and Streamlit app</li>
+          <li><a href="#program" style=${{color:"var(--accent)"}}>See all seven projects</a></li>
+        </ul>
+      <//>
+    </div>
+  </div></section>`;
+}
+
+function Skills({ lens }) {
+  return html`<section id="skills"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Skills</span><h2>What I work with</h2></div><p>${lens === "all" ? "" : "Highlighted: skills for " + TRACKS.find(t => t.id === lens).label + "."}</p></div>
+    <div className="skills">${SKILLS.map(g => html`<div key=${g.group} className="skill-row"><span className="mono">${g.group}</span>
+      <div className="chips">${g.items.map(([s, tr]) => {
+        const cls = lens === "all" ? "" : tr.includes(lens) ? "hit" : "dim";
+        return html`<span key=${s} className=${"chip " + cls}>${s}</span>`;
+      })}</div></div>`)}</div>
+  </div></section>`;
+}
+
+function Interests() {
+  return html`<section id="interests"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Interests</span><h2>Outside of work</h2></div></div>
+    <div className="int-grid">${INTERESTS.map((it, i) => html`<${Tilt} key=${it.id} className=${"int " + (it.size === "big" ? "int-big" : it.size === "wide" ? "int-wide" : "")} style=${{"--t1": it.tone[0], "--t2": it.tone[1]}}>
+      ${it.photo ? html`<img className="int-img" src=${it.photo} alt=${it.name} loading="lazy" style=${{objectPosition: it.pos || "50% 50%"}} />` : html`<div className="int-art" aria-hidden="true"><span>${it.name}</span></div>`}
+      <div className="int-cap">
+        <span className="mono">${it.kicker}</span>
+        <h4>${it.name}</h4>
+        ${it.line ? html`<p>${it.line}</p>` : null}
+        ${it.photo ? null : html`<span className="int-soon mono">Photo coming soon</span>`}
+      </div>
+    <//>`)}</div>
+  </div></section>`;
+}
+
+function Contact() {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    const done = () => { setCopied(true); setTimeout(() => setCopied(false), 1800); };
+    const sel = () => { const el = document.getElementById("mail"); const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    try { navigator.clipboard.writeText(LINKS.email).then(done, sel); } catch (e) { sel(); }
+  };
+  return html`<section id="contact"><div className="wrap">
+    <div className="sec-head"><div><span className="k mono">Contact</span><h2>Get in touch</h2></div></div>
+    <div className="contact-grid">
+      <div>
+        <p className="prose" style=${{marginBottom:"22px"}}>Open to Summer 2027 internships in AI/ML, AI implementation, software engineering, and cybersecurity. Email is the fastest way to reach me.</p>
+        <div className="mail" id="mail">${LINKS.email}</div>
+        <div className="mail-row">
+          <button className="btn pri" onClick=${copy}>${copied ? "Copied" : "Copy email"}</button>
+          <a className="btn" href=${"mailto:" + LINKS.email}>Open in mail app</a>
+        </div>
+      </div>
+      <div className="links">
+        <a className="link-row" href=${LINKS.linkedin} target="_blank" rel="noopener"><div><b>LinkedIn</b><br/><span className="mono">in/jackmonty1726</span></div><${Arrow}/></a>
+        <div className="link-row link-static"><div><b>GitHub · jaxmorgan43</b><br/><span className="mono">Private. This account holds taskapeer’s codebase, and taskapeer is a business, so the repositories aren’t public. Ask me about the code.</span></div></div>
+        <a className="link-row" href=${LINKS.taskapeer} target="_blank" rel="noopener"><div><b>taskapeer</b><br/><span className="mono">taskapeer1.com</span></div><${Arrow}/></a>
+      </div>
+    </div>
+  </div></section>`;
+}
+
+function App() {
+  const [lens, setLensState] = useState(() => { try { return localStorage.getItem("lens") || "all"; } catch (e) { return "all"; } });
+  const [active, setActive] = useState("");
+  const [pgpSel, setPgpSel] = useState(PGP[0].id);
+  const openCourse = id => { setPgpSel(id); const el = document.getElementById("program"); if (el) el.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth" }); };
+  const setLens = id => { setLensState(id); try { localStorage.setItem("lens", id); } catch (e) {} };
+  const accent = lens === "all" ? "#FF7A29" : colorOf(lens);
+
+  useEffect(() => { document.documentElement.style.setProperty("--accent", accent); }, [accent]);
+
+  useEffect(() => {
+    const mv = () => {};
+    const ids = ["about","experience","campus","projects","program","cyber","education","skills","interests","contact"];
+    let io;
+    if ("IntersectionObserver" in window) {
+      io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.id === "education" ? "cyber" : e.target.id); }), { rootMargin: "-45% 0px -50% 0px" });
+      ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+    }
+    return () => { removeEventListener("pointermove", mv); io && io.disconnect(); };
+  }, []);
+
+  return html`<${React.Fragment}>
+    <${Mountains} />
+    <${DeckViewer} />
+    <${Nav} active=${active} />
+    <${Hero} lens=${lens} setLens=${setLens} />
+    <${About} />
+    <${Timeline} lens=${lens} id="experience" kicker="Experience" title="Where I’ve worked" items=${EXPERIENCE} />
+    <${Timeline} lens=${lens} id="campus" kicker="Campus" title="Campus Involvement" items=${INVOLVEMENT} />
+    <${Projects} lens=${lens} openCourse=${openCourse} />
+    <${Program} lens=${lens} sel=${pgpSel} setSel=${setPgpSel} />
+    <${Cyber} lens=${lens} />
+    <${Education} />
+    <${Skills} lens=${lens} />
+    <${Interests} />
+    <${Contact} />
+    <div className="foot-band"><footer className="wrap mono"><span>Jackson Montgomery · Austin, Texas</span></footer></div>
+  <//>`;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(html`<${App} />`);
+</script>
+
+</body></html>
