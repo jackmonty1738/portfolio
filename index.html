@@ -378,6 +378,10 @@ body{background:#0E1A2E}
 .portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .portrait:hover img{transform:scale(1.04)}
 @media (max-width:760px){.about-grid{grid-template-columns:1fr}.portrait{max-width:300px}}
+.firm-lib{flex:1 1 100%;margin-top:8px;display:grid;gap:10px}
+.firm-lib>.mono{color:var(--muted)}
+.firm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.btn-firm{justify-content:flex-start;padding:9px 12px;font-size:.78rem;letter-spacing:.06em;text-align:left;white-space:normal;line-height:1.3}
 .deck-modal{position:fixed;inset:0;z-index:100;background:rgba(6,12,24,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;animation:fadeUp .25s ease both}
 .deck-box{width:min(1100px,100%);max-height:100%;display:grid;gap:12px;grid-template-rows:auto minmax(0,1fr) auto auto}
 .deck-top{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--text)}
@@ -504,6 +508,35 @@ const INVOLVEMENT = [
     ] }
 ];
 
+function nvDeck(slug, title, n, label) { return { title, label, slides: Array.from({ length: n }, (_, i) => `decks/newvista/${slug}-s-${String(i + 1).padStart(2, "0")}.jpg`) }; }
+const NV_FIRMS = [
+  ["akin", "Akin Gump", 5],
+  ["baker-botts", "Baker Botts", 6],
+  ["bracewell-llp", "Bracewell", 6],
+  ["clifford-chance", "Clifford Chance", 6],
+  ["cravath-swaine-moore", "Cravath, Swaine & Moore", 6],
+  ["davis-polk", "Davis Polk", 6],
+  ["debevoise-plimpton", "Debevoise & Plimpton", 6],
+  ["freshfields", "Freshfields", 6],
+  ["gibson-dunn", "Gibson Dunn", 6],
+  ["haynes-boone", "Haynes Boone", 6],
+  ["holland-knight", "Holland & Knight", 6],
+  ["hunton-andrews-kurth", "Hunton Andrews Kurth", 6],
+  ["husch-blackwell", "Husch Blackwell", 6],
+  ["kirkland-ellis-energy-law-analysis", "Kirkland & Ellis", 7],
+  ["latham-and-watkins-analysis", "Latham & Watkins", 7],
+  ["norton", "Norton Rose Fulbright", 6],
+  ["orrick", "Orrick", 6],
+  ["paul-hastings", "Paul Hastings", 6],
+  ["paul-weiss-rifkind-wharton-garrison-llp", "Paul, Weiss", 6],
+  ["simpson", "Simpson Thacher", 8],
+  ["skadden", "Skadden", 6],
+  ["sullivan-cromwell", "Sullivan & Cromwell", 6],
+  ["vinson-elkins", "Vinson & Elkins", 6],
+  ["weil-gotshal-manges", "Weil, Gotshal & Manges", 6],
+  ["white-case", "White & Case", 6]
+].map(([slug, name, n]) => nvDeck(slug, name + ": Energy Law Leadership", n, name));
+
 /* ---- Projects: Internship Research ---- */
 const INTERNSHIP = [
   { id: "newvista", name: "NewVista Advisory Group", meta: "Houston · Summer 2025",
@@ -511,8 +544,11 @@ const INTERNSHIP = [
     projects: [
       { title: "Energy M&A Law Firm Diligence Library", kicker: "Due diligence · Data visualization", tracks: ["impl"],
         summary: "Profiled 25 law firms active in energy M&A and built an individualized deck for each one.",
-        description: "Researched each firm's practice concentration, deal history, and key people, then turned the findings into a standardized, visual PowerPoint briefing per firm so partners could walk into a conversation prepared.",
-        deck: null, significance: null },
+        description: "Researched each firm's practice concentration, deal history, and key people, then turned the findings into a standardized, visual briefing per firm: a firm overview, pie charts of practice focus, clientele, and offices, tables of the top 20 energy partners with their notable deals, and a closing \u201cWhy this helps NewVista\u201d slide ranking who to contact first. I then compared the top three firms head to head and presented the full library, with an outreach plan, to the team.",
+        deck: nvDeck("newvista-final-jack", "Summer 2025 at NewVista: Internship Summary", 19, "Final presentation"),
+        decks: [nvDeck("top-3-firms-evaluated", "Top 3 Firms: Individual Strength Evaluation", 8, "Top 3 firms evaluated")],
+        library: { label: "All 25 firm briefings", decks: NV_FIRMS },
+        significance: "Gave NewVista a prioritized list of energy M&A partners across 25 firms, plus a plan to turn it into outreach: a targeted LinkedIn campaign, a CRM tracker for each partner, and deal-specific briefs for the highest-priority contacts." },
       { title: "Private AI Research and Deck Assistant", kicker: "Internal tooling · Applied AI", tracks: ["ai","impl"],
         summary: "Private AI tools that shortened the research cycle behind client-facing presentations.",
         description: "Built internal AI tooling to gather and summarize firm research and draft presentation content, cutting the time from raw research to a finished briefing and strengthening the analytics behind client outreach.",
@@ -897,7 +933,9 @@ function ProjectCard({ p, lens, mode }) {
         ` : html`
           <div className="field"><dt className="mono">What I did</dt><dd>${p.description}</dd></div>
           <div className="field"><dt className="mono">Deliverable</dt><dd style=${{display:"flex",flexWrap:"wrap",gap:"8px"}}>
-            ${p.deck ? html`<${DeckButton} deck=${p.deck} />` : html`<${Soon}>Slide deck coming soon<//>`}
+            ${p.deck ? html`<${DeckButton} deck=${p.deck} label=${p.deck.label} />` : html`<${Soon}>Slide deck coming soon<//>`}
+            ${(p.decks || []).map(d => html`<${DeckButton} key=${d.title} deck=${d} label=${d.label} />`)}
+            ${p.library ? html`<div className="firm-lib"><span className="mono">${p.library.label} · ${p.library.decks.length}</span><div className="firm-grid">${p.library.decks.map(d => html`<${DeckButton} key=${d.title} deck=${d} label=${d.label} small=${true} />`)}</div></div>` : null}
             ${p.link ? html`<a className="btn" href=${p.link} target="_blank" rel="noopener">Visit live site <${Arrow}/></a>` : null}
           </dd></div>
           <div className="field"><dt className="mono">Impact</dt><dd>${p.significance || html`<${Soon}>Impact statement coming soon<//>`}</dd></div>
@@ -1017,8 +1055,8 @@ function Program({ lens, sel, setSel }) {
 
 /* ---- in-page slide deck viewer ---- */
 const DeckBus = { open: null };
-function DeckButton({ deck }) {
-  return html`<button className="btn" onClick=${e => { e.stopPropagation(); DeckBus.open && DeckBus.open(deck); }}>Open slide deck <${Arrow}/></button>`;
+function DeckButton({ deck, label, small }) {
+  return html`<button className=${small ? "btn btn-firm" : "btn"} onClick=${e => { e.stopPropagation(); DeckBus.open && DeckBus.open(deck); }}>${label || "Open slide deck"} ${small ? null : html`<${Arrow}/>`}</button>`;
 }
 function stripDeck(title, name, n) { return { title, strip: { base: `decks/pgp/${name}`, n, per: 8 } }; }
 const deckCount = d => d.slides ? d.slides.length : d.strip.n;
